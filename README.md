@@ -1,12 +1,15 @@
 # lambda-multipart-parser
+
 ```
-npm install lambda-multipart-parser --save
+npm install aws-lambda-multipart-parser --save
 ```
 
 ## Introduction
-This nodejs module will parse the multipart-form containing files and fields from the AWS lambda event object. It works very well parsing **binary** and text files.
+
+This nodejs module is the fork of [lambda-multipart-parser](https://github.com/francismeynard/lambda-multipart-parser.git "lambda-multipart-parser") with upgrades in busboy and test framework, this module is mainly for parsing the multipart-form containing files and fields from the AWS lambda event object. It works well with parsing **binary** and text files.
 
 ## Description
+
 ```
 @param {event} - an event containing the multipart-form in the body
 @return {object} - a JSON object containing array of files and fields, sample below.
@@ -27,21 +30,23 @@ This nodejs module will parse the multipart-form containing files and fields fro
 ```
 
 ## Usage
+
 ```
-const parser = require('lambda-multipart-parser');
+const parser = require('aws-lambda-multipart-parser');
 
 const result = await parser.parse(event);
 console.log(result.files);
 ```
 
 **Important**
-Please make sure to enable the "Use Lambda Proxy integration" in API Gateway method Integration request. 
+Please make sure to enable the "**Use Lambda Proxy integration**" in API Gateway method Integration request.
 
 If decided not to enable it for some reason, make sure to pass the required Lambda event parameters in Integration Request -> Mapping Templates section, such as body, headers and isBase64Encoded flag.
 
 Sample Lambda and API Gateway implementation with Cloudformation can be found in [here](http://francismeynard.github.io/aws-upload-document-service).
 
 ## Test
+
 ```
 npm run test
 ```
@@ -55,3 +60,7 @@ npm run test
 1.0.0 - Formalized package release version. Add utf8 support.
 
 1.0.1 - Added support for TypeScript typings.
+
+1.0.2 - Fork with resolved issues.
+           	- Upgraded busboy to latest version 1.6.0
+		- Added support of Jest framework for testing.

@@ -1,20 +1,21 @@
 {
-    "name": "lambda-multipart-parser",
-    "version": "1.0.1",
+    "name": "aws-lambda-multipart-parser",
+    "version": "1.0.2",
     "description": "This module will parse the multipart-form containing files and fields from the lambda event object.",
     "main": "index.js",
-    "author": "francismeynard",
+    "author": "sagardewani",
     "license": "MIT",
     "scripts": {
-        "test": "./node_modules/.bin/mocha --recursive --reporter spec"
+        "test": "jest"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/francismeynard/lambda-multipart-parser.git"
+        "url": "git+https://github.com/sagardewani/aws-lambda-multipart-parser.git"
     },
-    "homepage": "https://github.com/francismeynard/lambda-multipart-parser#readme",
+    "homepage": "https://github.com/sagardewani/aws-lambda-multipart-parser#readme",
     "keywords": [
         "aws",
+        "s3",
         "lambda",
         "parser",
         "multipart",
@@ -24,11 +25,9 @@
         "multipart/formdata"
     ],
     "dependencies": {
-        "busboy": "^0.3.0"
+        "busboy": "^1.6.0"
     },
     "devDependencies": {
-        "chai": "^3.5.0",
-        "mocha": "^2.5.3",
-        "sinon": "^6.3.1"
+        "jest": "^29.7.0"
     }
 }

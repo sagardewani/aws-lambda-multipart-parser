@@ -1,6 +1,6 @@
 'use strict';
 
-const Busboy = require('busboy');
+const busboy = require('busboy');
 
 /*
  * This module will parse the multipart-form containing files and fields from the lambda event object.
@@ -21,7 +21,7 @@ const Busboy = require('busboy');
     }
  */
 const parse = (event) => new Promise((resolve, reject) => {
-    const busboy = new Busboy({
+    const bb = busboy({
         headers: {
             'content-type': event.headers['content-type'] || event.headers['Content-Type']
         }
@@ -30,40 +30,37 @@ const parse = (event) => new Promise((resolve, reject) => {
         files: []
     };
 
-    busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+    bb.on('file', (name, file, info) => {
+        const { filename, encoding, mimeType } = info;
+
         const uploadFile = {};
 
         file.on('data', data => {
             uploadFile.content = data;
-        });
-
-        file.on('end', () => {
+        }).on('close', () => {
             if (uploadFile.content) {
                 uploadFile.filename = filename;
-                uploadFile.contentType = mimetype;
+                uploadFile.contentType = mimeType;
                 uploadFile.encoding = encoding;
-                uploadFile.fieldname = fieldname;
-                result.files.push(uploadFile);
+                uploadFile.fieldname = name;
+                result.files.push(uploadFile);                
             }
-        });
+        })
     });
 
-    busboy.on('field', (fieldname, value) => {
-        result[fieldname] = value;
+    bb.on('field', (name, value, _info) => {
+        result[name] = value;
     });
 
-    busboy.on('error', error => {
-        reject(error);
-    });
+    bb.on('error', reject);
 
-    busboy.on('finish', () => {
+    bb.on('close', () => {
         resolve(result);
     });
 
     const encoding = event.encoding || (event.isBase64Encoded ? "base64" : "binary");
-
-    busboy.write(event.body, encoding);
-    busboy.end();
+    const body = encoding === "base64" ? Buffer.from(event.body, "base64") : event.body;
+    bb.end(body, encoding);
 });
 
 module.exports.parse = parse;
