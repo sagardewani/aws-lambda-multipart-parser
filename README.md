@@ -1,7 +1,7 @@
 # lambda-multipart-parser
 
 ```
-npm install aws-lambda-multipart-parser --save
+npm install lambda-multipart-data-parser --save
 ```
 
 ## Introduction
@@ -32,7 +32,7 @@ This nodejs module is the fork of [lambda-multipart-parser](https://github.com/f
 ## Usage
 
 ```
-const parser = require('aws-lambda-multipart-parser');
+const parser = require('lambda-multipart-data-parser');
 
 const result = await parser.parse(event);
 console.log(result.files);
