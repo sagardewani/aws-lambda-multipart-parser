@@ -1,7 +1,7 @@
 {
-    "name": "aws-lambda-multipart-parser",
+    "name": "lambda-multipart-data-parser",
     "version": "1.0.2",
-    "description": "This module will parse the multipart-form containing files and fields from the lambda event object.",
+    "description": "Forked from francismeynard/lambda-multipart-parser, this Node.js module enhances multipart-form parsing from AWS Lambda event objects. It efficiently handles both binary and text files. Following fork will contain resolved issues, future supports and required upgrades.",
     "main": "index.js",
     "author": "sagardewani",
     "license": "MIT",
@@ -10,12 +10,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sagardewani/aws-lambda-multipart-parser.git"
+        "url": "git+https://github.com/sagardewani/lambda-multipart-data-parser.git"
     },
-    "homepage": "https://github.com/sagardewani/aws-lambda-multipart-parser#readme",
+    "homepage": "https://github.com/sagardewani/lambda-multipart-data-parser#readme",
     "keywords": [
         "aws",
-        "s3",
         "lambda",
         "parser",
         "multipart",
