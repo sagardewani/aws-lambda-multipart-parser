@@ -1,6 +1,6 @@
 {
     "name": "lambda-multipart-data-parser",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Forked from francismeynard/lambda-multipart-parser, this Node.js module enhances multipart-form parsing from AWS Lambda event objects. It efficiently handles both binary and text files. Following fork will contain resolved issues, future supports and required upgrades.",
     "main": "index.js",
     "types": "index.d.ts",

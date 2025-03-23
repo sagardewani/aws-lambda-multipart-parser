@@ -106,12 +106,16 @@ npm run test
 1.0.1 - Added support for TypeScript typings.
 
 1.0.2 - Fork with resolved issues.
-  * Upgraded busboy to latest version 1.6.0
-	* Added support of Jest framework for testing.
+
+* Upgraded busboy to latest version 1.6.0
+  * Added support of Jest framework for testing.
 
 1.0.3 - Added ES6 Support, UTF8 based test, and README updates
-  * Added es6 as default export
-  * Updated README
-  * Added utf8 fieldname based test
-  * Added `dist` folder to server `cjs` and `es` convention based scripts
-  * Moved commonJS convention based file to `/dist/cjs` and esm convention based file to `/dist/es`
+
+* Added es6 as default export
+* Updated README
+* Added utf8 fieldname based test
+* Added `dist` folder to server `cjs` and `es` convention based scripts
+* Moved commonJS convention based file to `/dist/cjs` and esm convention based file to `/dist/es`
+
+1.0.4 - Updated package name in README
