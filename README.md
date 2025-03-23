@@ -1,4 +1,4 @@
-# lambda-multipart-parser
+# lambda-multipart-data-parser
 
 ```
 npm install lambda-multipart-data-parser --save
