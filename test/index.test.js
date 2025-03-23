@@ -1,4 +1,4 @@
-const { parse } = require('../index');
+const { parse } = require('../dist/cjs/index.cjs');
 
 describe('Multipart Parser', () => {
     let mockEvent;
@@ -83,7 +83,32 @@ describe('Multipart Parser', () => {
 
         expect(result.html).toEqual(html);
 
-    })
+    });
+
+    it('should parse multipart form-data successfully given base64 multipart form data with utf8 charset based fieldname', async () => {
+      const body = `LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTc3NzIzOTMxNDA0OTcxNDE3NTMxMjEyNw0KQ29udGVudC1EaXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSLguJfguJTguKrguK0udHh0IjsgZmlsZW5hbWU9InRlc3QudHh0Ig0KQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluDQoNCkhlbGxvIFdvcmxkDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tNzc3MjM5MzE0MDQ5NzE0MTc1MzEyMTI3LS0=`;
+
+      mockEvent = {
+        headers: {
+          "Content-Type": "multipart/form-data; boundary=--------------------------777239314049714175312127"
+        },
+        body,
+        isBase64Encoded: true
+      };
+
+      const parsePromise = parse(mockEvent);
+
+      const result = await parsePromise;
+
+      expect(result.files).toHaveLength(1);
+
+      const file = result.files[0];
+
+      expect(file.filename).toEqual('test.txt');
+      expect(file.contentType).toEqual('text/plain');
+      expect(file.encoding).toEqual('7bit');
+      expect(file.fieldname).toEqual(Buffer.from('ทดสอ.txt', 'utf-8').toString('latin1'));
+    });
 
     it('should handle errors correctly', async () => {
         mockEvent = {
@@ -94,7 +119,7 @@ describe('Multipart Parser', () => {
           encoding: 'utf8',
         };
 
-        const parsePromise = parse(mockEvent);
+        const parsePromise = parse(mockEvent, { filenameCharset: 'utf8' });
 
         await expect(parsePromise).rejects.toThrow('Unexpected end of form');
     });

@@ -38,12 +38,56 @@ const result = await parser.parse(event);
 console.log(result.files);
 ```
 
+## Non-latin filenames
+
+Example: If you want to parse a file where custom filename (or **fieldname**) is beyond latin1 (ISO-8599-1) character set.
+**fieldname: ทดสอบ.txt**
+This can be defined via options
+
+```
+const parser = require('lambda-multipart-data-parser');
+
+const options = {
+  filenameCharset: 'utf-8'
+}
+
+const result = await parser.parse(event, options);
+const file = result.files[0];
+
+console.log(file);
+
+Output:
+(log)
+{
+  content: <Buffer 25 50 ... bytes>,
+  filename: 'test.txt',
+  contentType: 'text/plain',
+  encoding: '7bit',
+  fieldname: 'ทดสอบ.txt'
+}
+```
+
+## Typescript Support and ES6+ compatible:
+
+You should use
+
+```
+import * as parser from 'lambda-multipart-data-parset';
+
+const body = await parser.parse(event);
+```
+
+```
+options: MultipartOptions
+  - { filenameCharset?: BufferEncoding }
+```
+
 **Important**
 Please make sure to enable the "**Use Lambda Proxy integration**" in API Gateway method Integration request.
 
 If decided not to enable it for some reason, make sure to pass the required Lambda event parameters in Integration Request -> Mapping Templates section, such as body, headers and isBase64Encoded flag.
 
-Sample Lambda and API Gateway implementation with Cloudformation can be found in [here](http://francismeynard.github.io/aws-upload-document-service).
+Sample Lambda and API Gateway implementation with Cloudformation (**coming soon**).
 
 ## Test
 
